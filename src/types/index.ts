@@ -55,6 +55,7 @@ export interface ServerInstance {
   config: MCPServerConfig;
   process?: any;
   client?: any;
+  transport?: any;
   status: 'active' | 'inactive' | 'spawning' | 'error';
   createdAt: number;
   expiresAt?: number;

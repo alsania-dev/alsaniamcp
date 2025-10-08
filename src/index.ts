@@ -1,11 +1,13 @@
 import 'dotenv/config';
 import { UniversalMCPServer } from './core/server.js';
 import { HTTPGateway } from './transport/http-gateway.js';
+import { MCPProxyManager } from './proxy/mcp-proxy.js';
 
 async function main() {
   console.log('🚀 Starting Universal MCP Server...');
 
   const mcpServer = new UniversalMCPServer();
+  const proxyManager = new MCPProxyManager(mcpServer);
   
   mcpServer.registerTool(
     'core',
@@ -61,7 +63,11 @@ async function main() {
 
   await mcpServer.start();
 
-  const gateway = new HTTPGateway(mcpServer, 5000);
+  const gateway = new HTTPGateway(mcpServer, proxyManager, 5000);
+  
+  setInterval(async () => {
+    await proxyManager.cleanupExpired();
+  }, 60000);
   
   gateway.addRoute('test', {
     path: '/test',

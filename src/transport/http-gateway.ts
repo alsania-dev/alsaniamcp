@@ -1,17 +1,20 @@
 import express, { Request, Response } from 'express';
 import { GatewayRoute } from '../types/index.js';
 import { UniversalMCPServer } from '../core/server.js';
+import { MCPProxyManager } from '../proxy/mcp-proxy.js';
 import jwt from 'jsonwebtoken';
 
 export class HTTPGateway {
   private app: express.Application;
   private routes: Map<string, GatewayRoute> = new Map();
   private mcpServer: UniversalMCPServer;
+  private proxyManager: MCPProxyManager;
   private port: number;
 
-  constructor(mcpServer: UniversalMCPServer, port: number = 5000) {
+  constructor(mcpServer: UniversalMCPServer, proxyManager: MCPProxyManager, port: number = 5000) {
     this.app = express();
     this.mcpServer = mcpServer;
+    this.proxyManager = proxyManager;
     this.port = port;
     this.setupMiddleware();
     this.setupRoutes();
@@ -87,6 +90,37 @@ export class HTTPGateway {
       } catch (error: any) {
         res.status(500).json({ success: false, error: error.message });
       }
+    });
+
+    this.app.post('/proxy/connect', async (req, res) => {
+      try {
+        const serverId = await this.proxyManager.connectToServer(req.body);
+        res.json({ success: true, serverId });
+      } catch (error: any) {
+        res.status(500).json({ success: false, error: error.message });
+      }
+    });
+
+    this.app.post('/proxy/disconnect/:serverId', async (req, res) => {
+      try {
+        await this.proxyManager.disconnectServer(req.params.serverId);
+        res.json({ success: true });
+      } catch (error: any) {
+        res.status(500).json({ success: false, error: error.message });
+      }
+    });
+
+    this.app.get('/proxy/servers', async (req, res) => {
+      const servers = this.proxyManager.getActiveServers();
+      res.json({ servers });
+    });
+
+    this.app.get('/proxy/status/:serverId', async (req, res) => {
+      const status = this.proxyManager.getServerStatus(req.params.serverId);
+      if (!status) {
+        return res.status(404).json({ error: 'Server not found' });
+      }
+      res.json(status);
     });
 
     this.app.post('/gateway/:route', async (req, res) => {
