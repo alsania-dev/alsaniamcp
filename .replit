@@ -15,10 +15,10 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Universal MCP Server"
+args = "AlsaniaMCP Server"
 
 [[workflows.workflow]]
-name = "Universal MCP Server"
+name = "AlsaniaMCP Server"
 author = "agent"
 
 [[workflows.workflow.tasks]]
@@ -32,3 +32,7 @@ outputType = "webview"
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[[ports]]
+localPort = 33103
+externalPort = 3000

@@ -4,7 +4,7 @@ import { HTTPGateway } from './transport/http-gateway.js';
 import { MCPProxyManager } from './proxy/mcp-proxy.js';
 
 async function main() {
-  console.log('🚀 Starting Universal MCP Server...');
+  console.log('🚀 Starting AlsaniaMCP Server...');
 
   const mcpServer = new UniversalMCPServer();
   const proxyManager = new MCPProxyManager(mcpServer);
@@ -52,7 +52,7 @@ async function main() {
           role: 'user',
           content: {
             type: 'text',
-            text: `Hello ${name}! I'm the Universal MCP Server. How can I help you today?`,
+            text: `Hello ${name}! I'm AlsaniaMCP - your universal AI communication and tool proxy server. How can I help you today?`,
           },
         },
       ];
@@ -78,7 +78,7 @@ async function main() {
 
   gateway.start();
 
-  console.log('✅ Universal MCP Server is running');
+  console.log('✅ AlsaniaMCP Server is running');
   console.log('📡 HTTP Gateway: http://localhost:5000');
   console.log('🔊 SSE Stream: http://localhost:5000/stream');
 }

@@ -1,5 +1,6 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 import { spawn, ChildProcess } from 'child_process';
 import { MCPServerConfig, ServerInstance } from '../types/index.js';
 import { UniversalMCPServer } from '../core/server.js';
@@ -56,7 +57,7 @@ export class MCPProxyManager {
 
     const client = new Client(
       {
-        name: 'universal-mcp-proxy',
+        name: 'AlsaniaMCP-Proxy',
         version: '1.0.0',
       },
       {
@@ -70,7 +71,27 @@ export class MCPProxyManager {
   }
 
   private async connectHTTP(instance: ServerInstance): Promise<void> {
-    throw new Error('HTTP transport not yet implemented');
+    const { endpoint } = instance.config;
+    
+    if (!endpoint) {
+      throw new Error('HTTP transport requires an endpoint');
+    }
+
+    const transport = new StreamableHTTPClientTransport(new URL(endpoint));
+
+    const client = new Client(
+      {
+        name: 'AlsaniaMCP-Proxy',
+        version: '1.0.0',
+      },
+      {
+        capabilities: {},
+      }
+    );
+
+    await client.connect(transport);
+    instance.client = client;
+    instance.transport = transport;
   }
 
   private async syncTools(serverId: string): Promise<void> {

@@ -44,7 +44,7 @@ export class UniversalMCPServer {
   constructor() {
     this.server = new Server(
       {
-        name: 'universal-mcp-server',
+        name: 'AlsaniaMCP',
         version: '1.0.0',
       },
       {
