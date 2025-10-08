@@ -55,6 +55,40 @@ export class HTTPGateway {
       res.json({ tools });
     });
 
+    this.app.get('/resources', async (req, res) => {
+      const resources = this.mcpServer.listResources();
+      res.json({ resources });
+    });
+
+    this.app.post('/resource', async (req, res) => {
+      try {
+        const { serverId, resourceUri } = req.body;
+        
+        const result = await this.mcpServer.readResource(serverId, resourceUri);
+        
+        res.json({ success: true, result });
+      } catch (error: any) {
+        res.status(500).json({ success: false, error: error.message });
+      }
+    });
+
+    this.app.get('/prompts', async (req, res) => {
+      const prompts = this.mcpServer.listPrompts();
+      res.json({ prompts });
+    });
+
+    this.app.post('/prompt', async (req, res) => {
+      try {
+        const { serverId, promptName, args } = req.body;
+        
+        const result = await this.mcpServer.getPrompt(serverId, promptName, args);
+        
+        res.json({ success: true, result });
+      } catch (error: any) {
+        res.status(500).json({ success: false, error: error.message });
+      }
+    });
+
     this.app.post('/gateway/:route', async (req, res) => {
       const routeConfig = this.routes.get(req.params.route);
       

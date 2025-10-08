@@ -25,6 +25,40 @@ async function main() {
     }
   );
 
+  mcpServer.registerResource(
+    'core',
+    'status',
+    'Server Status',
+    async () => {
+      return {
+        uptime: process.uptime(),
+        memory: process.memoryUsage(),
+        timestamp: Date.now(),
+      };
+    },
+    'Current server status and metrics',
+    'application/json'
+  );
+
+  mcpServer.registerPrompt(
+    'core',
+    'greeting',
+    async (args: any) => {
+      const name = args?.name || 'there';
+      return [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: `Hello ${name}! I'm the Universal MCP Server. How can I help you today?`,
+          },
+        },
+      ];
+    },
+    'Generate a greeting message',
+    [{ name: 'name', description: 'Name to greet', required: false }]
+  );
+
   await mcpServer.start();
 
   const gateway = new HTTPGateway(mcpServer, 5000);
