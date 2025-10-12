@@ -9,7 +9,7 @@ AlsaniaMCP is a universal Model Context Protocol (MCP) server that acts as a 2-w
 - ✅ Multi-transport layer (STDIO, HTTP/SSE gateway, HTTP proxy for remote MCP servers)
 - ✅ HTTP streaming gateway with proxy management endpoints
 - ✅ Streamable HTTP proxy transport using MCP SDK for remote server connections
-- 🚧 AI-to-AI communication framework (pending)
+- 🏗️ AI-to-AI communication framework (in progress)
 - 🚧 Voice activation system with keyword detection (pending)
 - 🚧 Speech-to-text and text-to-speech (pending)
 - 🚧 Dynamic MCP server spawning with permissions (pending)
@@ -17,7 +17,7 @@ AlsaniaMCP is a universal Model Context Protocol (MCP) server that acts as a 2-w
 - 🚧 CLI management tools (basic implementation)
 
 ## Recent Changes
-- **2025-10-08**: Renamed project to AlsaniaMCP (@alsaniamcp/mcp)
+- **2025-10-08**: Renamed project to AlsaniaMCP (@alsania-io/mcp)
 - **2025-10-08**: Added npm package configuration with bin support for npx usage
 - **2025-10-08**: Created Dockerfile and docker-compose.yml for containerization
 - **2025-10-08**: Implemented HTTP proxy transport using StreamableHTTPClientTransport from MCP SDK
@@ -29,16 +29,16 @@ AlsaniaMCP is a universal Model Context Protocol (MCP) server that acts as a 2-w
 
 ### NPX (Quick Start)
 ```bash
-npx -y @alsaniamcp/mcp@latest start
+npx -y @alsania-io/mcp@latest start
 ```
 
 ### Docker
 ```bash
 # Build
-docker build -t @alsaniamcp/mcp:latest .
+docker build -t @alsania-io/mcp:latest .
 
 # Run
-docker run -p 5000:5000 @alsaniamcp/mcp:latest
+docker run -p 5050:5050 @alsania-io/mcp:latest
 
 # Or use docker-compose
 docker-compose up

@@ -16,9 +16,9 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 RUN npm ci --production
 
-ENV PORT=5000
+ENV PORT=5050
 ENV NODE_ENV=production
 
-EXPOSE 5000
+EXPOSE 5050
 
 CMD ["node", "dist/index.js"]

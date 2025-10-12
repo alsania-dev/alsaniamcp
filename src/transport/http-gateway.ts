@@ -11,7 +11,7 @@ export class HTTPGateway {
   private proxyManager: MCPProxyManager;
   private port: number;
 
-  constructor(mcpServer: UniversalMCPServer, proxyManager: MCPProxyManager, port: number = 5000) {
+  constructor(mcpServer: UniversalMCPServer, proxyManager: MCPProxyManager, port: number = 5050) {
     this.app = express();
     this.mcpServer = mcpServer;
     this.proxyManager = proxyManager;

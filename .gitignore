@@ -6,3 +6,7 @@ dist/
 *.tsbuildinfo
 coverage/
 .nyc_output/
+
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md

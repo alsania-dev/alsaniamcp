@@ -1,5 +1,5 @@
 {
-  "name": "@alsaniamcp/mcp",
+  "name": "@alsania-io/mcp",
   "version": "1.0.0",
   "description": "AlsaniaMCP - Universal MCP proxy server with dynamic tool registry, AI communication, and voice activation",
   "main": "dist/index.js",
@@ -28,7 +28,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alsaniamcp/mcp"
+    "url": "https://github.com/alsania-dev/alsaniamcp"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.19.1",

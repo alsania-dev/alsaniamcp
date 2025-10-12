@@ -6,7 +6,7 @@ services:
     image: alsaniamcp/mcp:latest
     container_name: alsaniamcp-server
     ports:
-      - "5000:5000"
+      - "5050:5050"
     environment:
       - NODE_ENV=production
       - SESSION_SECRET=${SESSION_SECRET:-default-secret-change-me}
@@ -15,7 +15,7 @@ services:
       - alsaniamcp-data:/app/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5000/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5050/health"]
       interval: 30s
       timeout: 10s
       retries: 3

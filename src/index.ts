@@ -2,12 +2,21 @@ import 'dotenv/config';
 import { UniversalMCPServer } from './core/server.js';
 import { HTTPGateway } from './transport/http-gateway.js';
 import { MCPProxyManager } from './proxy/mcp-proxy.js';
+import { A2ACommunication, A2ACommunicationFactory } from './communication/a2a.js';
 
 async function main() {
   console.log('🚀 Starting AlsaniaMCP Server...');
 
   const mcpServer = new UniversalMCPServer();
   const proxyManager = new MCPProxyManager(mcpServer);
+  const a2a = A2ACommunicationFactory.create({
+    peerId: 'alsania-mcp',
+    peerName: 'AlsaniaMCP Server',
+    maxRetries: 3,
+    timeoutMs: 30000,
+    heartbeatInterval: 5000,
+    messageTTLSecs: 300,
+  }, mcpServer, proxyManager);
   
   mcpServer.registerTool(
     'core',
@@ -63,7 +72,7 @@ async function main() {
 
   await mcpServer.start();
 
-  const gateway = new HTTPGateway(mcpServer, proxyManager, 5000);
+  const gateway = new HTTPGateway(mcpServer, proxyManager, 8050);
   
   setInterval(async () => {
     await proxyManager.cleanupExpired();
@@ -79,8 +88,8 @@ async function main() {
   gateway.start();
 
   console.log('✅ AlsaniaMCP Server is running');
-  console.log('📡 HTTP Gateway: http://localhost:5000');
-  console.log('🔊 SSE Stream: http://localhost:5000/stream');
+  console.log('📡 HTTP Gateway: http://localhost:8050');
+  console.log('🔊 SSE Stream: http://localhost:8050/stream');
 }
 
 main().catch(console.error);
