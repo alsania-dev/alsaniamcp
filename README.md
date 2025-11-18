@@ -14,21 +14,21 @@
 - 🔌 **HTTP Gateway** - RESTful API with Server-Sent Events for streaming
 - 🔐 **Secure** - JWT authentication and BLAKE3 hashing
 - 🐳 **Docker Ready** - Easy deployment with Docker and docker-compose
-- 📦 **NPX Support** - Install and run with `npx @alsaniamcp/mcp`
+- 📦 **NPX Support** - Install and run with `npx @alsania-io/mcp`
 
 ## 🚀 Quick Start
 
 ### Using NPX (Easiest)
 
 ```bash
-npx -y @alsaniamcp/mcp start
+npx -y @alsania-io/mcp start
 ```
 
 ### Using Docker
 
 ```bash
 # Pull and run
-docker run -p 8050:8050 alsaniamcp/mcp:latest
+docker run -p 8050:8050 alsania-io/mcp:latest
 
 # Or with docker-compose
 docker-compose up
@@ -63,7 +63,7 @@ Connect to local MCP servers via stdin/stdout:
 ### 2. HTTP/SSE Gateway (Remote Clients)
 Expose tools to remote clients via HTTP REST API:
 - **Base URL**: `http://localhost:8050`
-- **SSE Stream**: `http://localhost:8050/stream`
+- **SSE Stream**: `http://localhost:8050/sse`
 - **Health Check**: `http://localhost:8050/health`
 
 ### 3. HTTP Proxy Transport (Remote MCP Servers)
@@ -133,9 +133,9 @@ curl -N http://localhost:8050/stream
 
 ```
 ┌─────────────────────────────────────────┐
-│          AlsaniaMCP Server              │
+│            AlsaniaMCP                   │
 │  ┌──────────────────────────────────┐   │
-│  │   UniversalMCPServer             │   │
+│  │      CoreMCPSerber               │   │
 │  │   - Tool Registry                │   │
 │  │   - Resource Registry            │   │
 │  │   - Prompt Registry              │   │
@@ -283,7 +283,7 @@ alsaniamcp proxy
 
 ### Build Image
 ```bash
-docker build -t alsaniamcp/mcp:latest .
+docker build -t alsania-io/mcp:latest .
 ```
 
 ### Run Container
@@ -292,7 +292,7 @@ docker run -d \
   -p 8050:8050 \
   -e SESSION_SECRET=your-secret-here \
   --name alsaniamcp \
-  alsaniamcp/mcp:latest
+  alsania-io/mcp:latest
 ```
 
 ### Docker Compose
@@ -394,7 +394,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📞 Support
 
 - **Documentation**: [MCP Protocol Docs](https://modelcontextprotocol.io)
-- **Issues**: [GitHub Issues](https://github.com/alsaniamcp/mcp/issues)
+- **Issues**: [GitHub Issues](https://github.com/alsania-dev/mcp/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/alsania-dev/alsaniamcp/discussions)
 
 ---
